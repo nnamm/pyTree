@@ -14,9 +14,9 @@ ADJUST_BLANK: Final = "    "
 
 def tree(
     root_path: str = ".",
-    depth_lv: int = 0,
-    depth_adjust=None,
     is_hidden: bool = False,
+    is_root: bool = True,
+    depth_adjust=None,
 ) -> None:
     """Display directories & files like tree-command.
 
@@ -24,9 +24,9 @@ def tree(
 
     Args:
         root_path (str)  : specified path
-        depth_lv (int)   : directory level(0 = root)
+        is_hidden (bool) : True -> display hidden files / False -> no display them
+        is_root (bool)   : True -> root scanning / False -> non-root scanning
         depth_adjust     : list of strings to represent the lower dir
-        is_hidden (bool) : True -> display hidden files / False -> not display them
 
     Returns:
         None
@@ -49,7 +49,7 @@ def tree(
     structures.sort()
 
     # Display root path
-    if depth_lv == 0:
+    if is_root is True:
         print(str(p.cwd().joinpath(root_path)) + "\n┃")
 
     # Display all directories & files
@@ -64,16 +64,17 @@ def tree(
             print(f"┣━ {structure.name}")
             if structure.is_dir():
                 adjust_strings.append(ADJUST_SEPARATE)
-                tree(str(structure), depth_lv + 1, adjust_strings, is_hidden)
+                tree(str(structure), is_hidden, False, adjust_strings)
                 adjust_strings.pop()
         else:
             print(f"┗━ {structure.name}")
             if structure.is_dir():
                 adjust_strings.append(ADJUST_BLANK)
-                tree(str(structure), depth_lv + 1, adjust_strings, is_hidden)
+                tree(str(structure), is_hidden, False, adjust_strings)
                 adjust_strings.pop()
 
 
 if __name__ == "__main__":
     tree(root_path=".")
+    tree(root_path="./test")
     tree(root_path="./test", is_hidden=True)
