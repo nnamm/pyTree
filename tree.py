@@ -49,7 +49,7 @@ def tree(
 
     # Display root path
     if is_root is True:
-        print(str(p.cwd().joinpath(root_path)) + "\n┃")
+        print(root_path + "\n┃")
 
     # Display all directories & files
     adjust_strings: list[str] = []
