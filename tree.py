@@ -1,10 +1,9 @@
 """Like tree command by Python3.9.0
 
 Todo:
-    * Allows args to be specified so that it can be executed on the command line tool.
-      - Plan to use "argparse"
     * I'd like to pytest it if possible.
 """
+import argparse
 from pathlib import Path
 from typing import Final
 
@@ -16,7 +15,7 @@ def tree(
     root_path: str = ".",
     is_hidden: bool = False,
     is_root: bool = True,
-    depth_adjust=None,
+    depth_adjust: list[str] = None,
 ) -> None:
     """Display directories & files like tree-command.
 
@@ -75,6 +74,13 @@ def tree(
 
 
 if __name__ == "__main__":
-    tree(root_path=".")
-    tree(root_path="./test")
-    tree(root_path="./test", is_hidden=True)
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "path", type=str, help="root directory to be scanned", metavar="Path"
+    )
+    parser.add_argument(
+        "--full", action="store_true", help="option to show hidden directories & files"
+    )
+    args = parser.parse_args()
+
+    tree(root_path=args.path, is_hidden=args.full)

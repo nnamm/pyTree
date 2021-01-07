@@ -1,6 +1,6 @@
 # pyTree
 
-This is a Python3.9.0 script that behaves like the tree command.
+This is a Python 3.9.0 script that behaves like the tree command.
 
 ## Specifications
 
@@ -10,13 +10,15 @@ This is a Python3.9.0 script that behaves like the tree command.
 ```shell
 # Do not show hidden files.
 
+$ python tree.py /Users/hoge/foo/pyTree
+
 /Users/hoge/foo/pyTree
 ┃
 ┣━ LICENSE
 ┣━ Pipfile
 ┣━ Pipfile.lock
 ┣━ README.md
-┣━ main.py
+┣━ tree.py
 ┣━ pyproject.toml
 ┗━ test
     ┗━ test_sample
@@ -29,10 +31,13 @@ This is a Python3.9.0 script that behaves like the tree command.
             ┣━ sample4
             ┃   ┗━ text.txt
             ┗━ sample5
+
 ```
 
 ```shell
 # Show hidden files.
+
+$ python tree.py /Users/hoge/foo/pyTree/test --full
 
 /Users/hoge/foo/pyTree/test
 ┃
@@ -52,8 +57,21 @@ This is a Python3.9.0 script that behaves like the tree command.
         ┗━ sample5
 ```
 
-Currently, this is a simple script, but I plan to make it as a command line tool. See the Todo in main.py.
+Command details are below.
+
+```shell
+$ python tree.py -h
+
+usage: tree.py [-h] [--full] Path
+
+positional arguments:
+  Path        root directory to be scanned
+
+optional arguments:
+  -h, --help  show this help message and exit
+  --full      option to show hidden directories & files
+```
 
 ## Note
 
-Developed for the purpose of learning Python. It's also for my own brain training. I had fun developing it :)
+Developed for the purpose of learning Python. It's also for my own brain training.  I had fun developing it :)
